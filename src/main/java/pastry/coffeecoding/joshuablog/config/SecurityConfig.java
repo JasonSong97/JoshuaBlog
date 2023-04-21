@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import pastry.coffeecoding.joshuablog.core.auth.MyUserDetails;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Configuration
@@ -30,6 +33,12 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login") // MyUserDetailsService 호출
                 .successHandler(((request, response, authentication) -> {
                     log.debug("디버그 : 로그인 성공");
+
+                    // View에서 사용하려고!
+                    MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
+                    HttpSession session = request.getSession();
+                    session.setAttribute("sessionUser", myUserDetails.getUser());
+
                     response.sendRedirect("/");
                 }))
                 .failureHandler(((request, response, exception) -> { // 인증과 권한 실패시 (엔트리)
