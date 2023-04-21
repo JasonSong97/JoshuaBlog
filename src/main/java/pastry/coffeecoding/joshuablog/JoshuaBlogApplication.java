@@ -6,15 +6,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pastry.coffeecoding.joshuablog.model.board.Board;
+import pastry.coffeecoding.joshuablog.model.board.BoardRepository;
 import pastry.coffeecoding.joshuablog.model.user.User;
 import pastry.coffeecoding.joshuablog.model.user.UserRepository;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class JoshuaBlogApplication {
 
-    @Profile("dev")
     @Bean
-    CommandLineRunner init(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder){
+    CommandLineRunner init(BCryptPasswordEncoder passwordEncoder, UserRepository userRepository, BoardRepository boardRepository) {
         return args -> {
             User ssar = User.builder()
                     .username("ssar")
@@ -23,7 +26,28 @@ public class JoshuaBlogApplication {
                     .role("USER")
                     .profile("person.png")
                     .build();
-            userRepository.save(ssar);
+            User cos = User.builder()
+                    .username("cos")
+                    .password(passwordEncoder.encode("1234"))
+                    .email("cos@nate.com")
+                    .role("USER")
+                    .profile("person.png")
+                    .build();
+            userRepository.saveAll(Arrays.asList(ssar, cos));
+
+            Board b1 = Board.builder()
+                    .title("제목1")
+                    .content("내용1")
+                    .user(ssar)
+                    .thumbnail("/upload/person.png")
+                    .build();
+            Board b2 = Board.builder()
+                    .title("제목2")
+                    .content("내용2")
+                    .user(cos)
+                    .thumbnail("/upload/person.png")
+                    .build();
+            boardRepository.saveAll(Arrays.asList(b1, b2));
         };
     }
 
