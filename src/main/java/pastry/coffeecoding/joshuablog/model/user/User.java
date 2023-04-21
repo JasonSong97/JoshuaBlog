@@ -1,7 +1,6 @@
 package pastry.coffeecoding.joshuablog.model.user;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 public class User {
 
-    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,13 +48,5 @@ public class User {
     public void update(String password, String email) {
         this.password = password;
         this.email = email;
-    }
-
-    public void setId(Long id) { // 1
-        this.id = id;
-    }
-
-    public Long getId() { // 1
-        return id;
     }
 }
