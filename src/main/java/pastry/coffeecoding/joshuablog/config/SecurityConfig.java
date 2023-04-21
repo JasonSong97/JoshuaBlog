@@ -27,12 +27,14 @@ public class SecurityConfig {
         // 2. Form 로그인 설정
         http.formLogin()
                 .loginPage("/loginForm") // 리다이렉션
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/login") // MyUserDetailsService 호출
                 .successHandler(((request, response, authentication) -> {
                     log.debug("디버그 : 로그인 성공");
+                    response.sendRedirect("/");
                 }))
                 .failureHandler(((request, response, exception) -> { // 인증과 권한 실패시 (엔트리)
                     log.debug("디버그 : 로그인 실패 : " + exception.getMessage());
+                    response.sendRedirect("/loginForm");
                 }));
 
         // 3. 인증, 권한 필터 설정 -> 권한은 X
