@@ -1,4 +1,4 @@
-package pastry.coffeecoding.joshuablog.controller;
+package pastry.coffeecoding.joshuablog.controller.viewtest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
