@@ -52,7 +52,29 @@
 - 댓글쓰기
 - 댓글삭제
 - 좋아요 하기
-<<<<<<< HEAD
 - 좋아요 보기
-=======
 - 좋아요 보기
+
+## 3. 새롭게 알게된 것들
+> 프로젝트를 하면서 새롭게 알게된 것들을 기록
+
+- trace, debug, info, warn, error
+- 시큐리티가 있어서 filter X
+- WEB-INF 떄문에 MVC패턴 강제
+- 들어오는 Dto는 전부 Entity 필요
+- Open-In-View = false -> 컨트롤러에서 Lazy-Loading 불가
+- Jpa에서 만든 메소드는 내가 제어권을 가지고 있지 않다. 따라서 try-catch를 해야한다.
+```java
+@Transactional
+    public void 회원가입(UserRequest.JoinInDto joinInDto) {
+        try {
+            joinInDto.setPassword(passwordEncoder.encode(joinInDto.getPassword()));
+            
+            userRepository.save(joinInDto.toEntity());
+        } catch (Exception e) {
+            throw new RuntimeException("회원가입 오류 : " + e.getMessage());
+        }
+
+    }
+```
+- iframe: 

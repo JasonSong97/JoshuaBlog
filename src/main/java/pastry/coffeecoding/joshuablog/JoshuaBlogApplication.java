@@ -14,7 +14,7 @@ import pastry.coffeecoding.joshuablog.model.user.UserRepository;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class JoshuaBlogApplication {
+public class JoshuaBlogApplication { // 더미 추가 -> 테스트를 위해
 
     @Bean
     CommandLineRunner init(BCryptPasswordEncoder passwordEncoder, UserRepository userRepository, BoardRepository boardRepository) {

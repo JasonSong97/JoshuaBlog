@@ -20,14 +20,14 @@ public class SecurityConfig {
     }
 
     @Bean // 권한 주소 설정
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // username, password, authentication 커스터마이징
         // 1. CSRF 해제
         http.csrf().disable();
 
-        // 2. frame option 해제 (시큐리티 h2 console 접속 허용을 위해)
+        // 2. frame option 해제 (해제목적: 시큐리티 h2 console 접속 허용을 위해)
         http.headers().frameOptions().disable();
 
-        // 2. Form 로그인 설정
+        // 3. Form 로그인 설정
         http.formLogin()
                 .loginPage("/loginForm") // 리다이렉션
                 .loginProcessingUrl("/login") // MyUserDetailsService 호출
@@ -41,14 +41,14 @@ public class SecurityConfig {
 
                     response.sendRedirect("/");
                 }))
-                .failureHandler(((request, response, exception) -> { // 인증과 권한 실패시 (엔트리)
+                .failureHandler(((request, response, exception) -> { // 인증과 권한 실패시 항상 여기로!(entry point)
                     log.debug("디버그 : 로그인 실패 : " + exception.getMessage());
                     response.sendRedirect("/loginForm");
                 }));
 
-        // 3. 인증, 권한 필터 설정 -> 권한은 X
+        // 4. 인증, 권한 필터 설정 -> 권한은 X 지금 프로젝트는 X
         http.authorizeRequests(
-                authorize -> authorize.antMatchers("/s/**").authenticated() // 인증
+                authorize -> authorize.antMatchers("/s/**").authenticated() // /s/** -> /loginForm
                         .anyRequest().permitAll()
         );
 

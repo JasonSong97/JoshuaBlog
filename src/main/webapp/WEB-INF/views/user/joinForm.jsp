@@ -25,7 +25,7 @@
                 <input type="email" name="email" class="form-control" placeholder="Enter email">
             </div>
 
-            <button class="btn btn-primary">회원가입</button>
+            <button class="btn btn-primary">Join</button>
         </form>
 
     </div>

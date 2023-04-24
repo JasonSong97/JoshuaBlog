@@ -20,7 +20,7 @@ public class UserRequest {
                     .email(email)
                     .role("USER") // enum 사용 가능
                     .status(true)
-                    .profile("person.png")
+                    .profile("person.png") // 기본 프로필 사진 -> 나중에 바뀔 예정
                     .build();
         }
     }

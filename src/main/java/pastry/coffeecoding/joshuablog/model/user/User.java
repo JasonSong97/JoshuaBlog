@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
+@Builder // AllArgsConstructor 필요
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user_tb")
@@ -19,7 +19,7 @@ public class User {
 
     @Column(unique = true, length = 20)
     private String username;
-    @Column(length = 60) // 실제로는 20자 이하
+    @Column(length = 60) // 실제로는 20자 이하만 받을 것. 암호화때문에
     private String password;
     @Column(length = 50)
     private String email;
@@ -34,6 +34,12 @@ public class User {
         this.profile = profile;
     }
 
+    // 회원정보 수정
+    public void update(String password, String email) {
+        this.password = password;
+        this.email = email;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -44,9 +50,4 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // 회원정보 수정
-    public void update(String password, String email) {
-        this.password = password;
-        this.email = email;
-    }
 }
