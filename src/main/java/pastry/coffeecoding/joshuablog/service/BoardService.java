@@ -39,9 +39,9 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true) // 변경감지 하지마, 고립성 떄문에(repeatable read - 내가 트랜젝션걸어놓은 거를 변경해도 그냥 무시)
-    public Page<Board> 글목록보기(Pageable pageAble) { // CSR은 DTO로 변경해서 돌려줘야 함
+    public Page<Board> 글목록보기(int page) { // CSR은 DTO로 변경해서 돌려줘야 함
         // 1. 모든 전략은 Lazy: 이유는 필요할 때만 가져오려고
         // 2. 필요할 때는 직접 fetch join을 사용하라!
-        return boardQueryRepository.findAll(pageAble);
+        return boardQueryRepository.findAll(page);
     }
 }
