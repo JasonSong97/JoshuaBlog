@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pastry.coffeecoding.joshuablog.core.exception.ssr.Exception400;
+import pastry.coffeecoding.joshuablog.core.util.MyParseUtil;
 import pastry.coffeecoding.joshuablog.dto.board.BoardRequest;
 import pastry.coffeecoding.joshuablog.model.board.Board;
 import pastry.coffeecoding.joshuablog.model.board.BoardQueryRepository;
@@ -28,8 +29,11 @@ public class BoardService {
                     () -> new RuntimeException("유저를 찾을 수 없습니다.")
             );
 
-            // 2. 게시글 쓰기
-            boardRepository.save(saveInDTO.toEntity(userPS));
+            // 2. 썸네일 만들기
+            String thumbnail = MyParseUtil.getThumbnail(saveInDTO.getContent());
+
+            // 3. 게시글 쓰기
+            boardRepository.save(saveInDTO.toEntity(userPS, thumbnail));
         } catch (Exception e) {
             throw new RuntimeException("글쓰기 실패 : " + e.getMessage());
         }
