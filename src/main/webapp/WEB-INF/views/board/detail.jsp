@@ -5,31 +5,31 @@
 
 <div class="container my-3">
         <div class="mb-3 d-flex">
-            <a href="/board/1/updateForm" class="btn btn-warning">수정</a>
+            <a href="/board/1/updateForm" class="btn btn-warning">Update</a>
             <form>
                 <input type="hidden" name="id" />
-                <button class="btn btn-danger">삭제</button>
+                <button class="btn btn-danger">Delete</button>
             </form>
         </div>
 
 
     <div class="mb-2 d-flex justify-content-end">
-        글 번호 :
+        Content Number :
         <span id="id" class="me-3">
-            <i>1</i>
+            <i>${board.id}</i>
         </span>
-        작성자 :
+        Writer :
         <span class="me-3">
-            <i>ssar</i>
+            <i>${board.user.username}</i>
         </span>
     </div>
 
     <div>
-        <h1><b>글제목</b></h1>
+        <h1><b>${board.title}</b></h1>
     </div>
     <hr/>
     <div>
-        <div>글내용</div>
+        <div>${board.content}</div>
     </div>
     <hr/>
     <i id="heart" class="fa-regular fa-heart fa-lg"></i>
@@ -46,13 +46,13 @@
     </div>
     <br/>
     <div class="card">
-        <div class="card-header">댓글 리스트</div>
+        <div class="card-header">Reply List</div>
         <ul id="reply-box" class="list-group">
             <li id="reply-1" class="list-group-item d-flex justify-content-between">
                 <div>댓글내용입니다</div>
                 <div class="d-flex">
-                    <div class="font-italic">작성자 : cos &nbsp;</div>
-                    <button onClick="replyDelete()" class="badge bg-secondary">삭제</button>
+                    <div class="font-italic">Writer : cos &nbsp;</div>
+                    <button onClick="replyDelete()" class="badge bg-secondary">Delete</button>
                 </div>
             </li>
         </ul>

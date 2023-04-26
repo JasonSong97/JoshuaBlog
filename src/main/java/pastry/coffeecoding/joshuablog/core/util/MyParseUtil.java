@@ -6,10 +6,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class MyParseUtil {
-    public static String getThumbnail(String html){
+    public static String getThumbnail(String html){ // content
         String thumbnail;
         Document doc = Jsoup.parse(html);
-        Elements els = doc.select("img");
+        Elements els = doc.select("img"); // 여러건
 
         if(els.size() == 0){
             thumbnail= "/images/dora.png";

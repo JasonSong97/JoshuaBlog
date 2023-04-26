@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class JoshuaBlogApplication extends DummyEntity{ // 더미 추가 -> 테스트를 위해
+public class JoshuaBlogApplication extends DummyEntity{
 
     @Profile("dev") // dev만 작동
     @Bean

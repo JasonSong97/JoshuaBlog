@@ -33,21 +33,21 @@
                 <c:choose>
                     <c:when test="${sessionUser ==null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="/loginForm">로그인</a>
+                            <a class="nav-link" href="/loginForm">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/joinForm">회원가입</a>
+                            <a class="nav-link" href="/joinForm">Join</a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
-                            <a class="nav-link" href="/s/board/saveForm">글쓰기</a>
+                            <a class="nav-link" href="/s/board/saveForm">Write</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/updateForm">회원정보</a>
+                            <a class="nav-link" href="/user/updateForm">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">로그아웃</a>
+                            <a class="nav-link" href="/logout">Logout</a>
                         </li>
                     </c:otherwise>
                 </c:choose>

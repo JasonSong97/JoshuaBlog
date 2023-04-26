@@ -1,8 +1,6 @@
 package pastry.coffeecoding.joshuablog.model.board;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import pastry.coffeecoding.joshuablog.model.user.User;
 
 import javax.persistence.*;
@@ -20,7 +18,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     private String title;
 
@@ -30,10 +28,7 @@ public class Board {
     @Lob // 4GB
     private String thumbnail; // content에 등록된 사진중 하나를 선정해서 자동으로 만들기
 
-    @JsonIgnore
     private LocalDateTime createdAt;
-
-    @JsonIgnore
     private LocalDateTime updatedAt;
 
     @PrePersist

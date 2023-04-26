@@ -22,7 +22,7 @@ public class MyExceptionAdvice {
 
     //private final ErrorLogRepository errorLogRepository;
 
-    ////////////////////////////// VIEW
+    ////////////////////////////// VIEW(ViewResolver) + 상태코드(SSR)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception400.class)
     public @ResponseBody String badRequest(Exception400 e) {
@@ -57,7 +57,7 @@ public class MyExceptionAdvice {
                 Script.back(e.getMessage());
     }
 
-    ////////////////////////////// API
+    ////////////////////////////// API(Message Converter) + 상태코드
     @ExceptionHandler(ExceptionApi400.class)
     public ResponseEntity<?> badRequest(ExceptionApi400 e) {
         return new ResponseEntity<>(e.body(), e.status());
