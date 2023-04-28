@@ -39,7 +39,7 @@
 </style>
 
 <div class="container my-3">
-    <h2 class="text-center">프로필 사진 변경 페이지</h2>
+    <h2 class="text-center">Page of changing profile</h2>
     <form action="/s/user/${user.id}/updateProfile" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <img src="/upload/${user.profile}" alt="Current Photo" class="img-fluid" id="imagePreview">
@@ -47,7 +47,7 @@
         <div class="form-group">
             <input type="file" class="form-control" id="profile" name="profile" onchange="chooseImage(this)">
         </div>
-        <button type="submit" class="btn btn-primary">사진변경</button>
+        <button type="submit" class="btn btn-primary">change profile</button>
     </form>
 </div>
 

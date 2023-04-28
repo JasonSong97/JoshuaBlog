@@ -6,12 +6,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import pastry.coffeecoding.joshuablog.core.exception.csr.ExceptionApi400;
 import pastry.coffeecoding.joshuablog.core.exception.ssr.Exception400;
 import pastry.coffeecoding.joshuablog.core.exception.ssr.Exception500;
 import pastry.coffeecoding.joshuablog.core.util.MyFileUtil;
 import pastry.coffeecoding.joshuablog.dto.user.UserRequest;
 import pastry.coffeecoding.joshuablog.model.user.User;
 import pastry.coffeecoding.joshuablog.model.user.UserRepository;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,14 +29,20 @@ public class UserService {
     // insert, update, delete -> try-catch
     @Transactional
     public void 회원가입(UserRequest.JoinInDto joinInDto) {
+        // 1. 유저네임 중복 확인
+        Optional<User> userOP = userRepository.findByUsername(joinInDto.getUsername());
+        if(userOP.isPresent()){
+            throw new Exception400("username", "유저네임이 중복되었어요");
+        }
+
         try {
-            // 1. 패스워드 암호화
+            // 2. 패스워드 암호화
             joinInDto.setPassword(passwordEncoder.encode(joinInDto.getPassword()));
 
-            // 2. DB 저장
+            // 3. DB 저장 (고립성)
             userRepository.save(joinInDto.toEntity()); // 내부에서 터진것은 잡지 못하기 때문에
         } catch (Exception e) {
-            throw new RuntimeException("회원가입 오류 : " + e.getMessage()); // CustomException 예정
+            throw new Exception500("회원가입 실패 : " + e.getMessage()); // CustomException 예정
         }
 
     } // 더티채킹, DB 세션 종료(OSIV=false)
@@ -59,4 +68,11 @@ public class UserService {
             throw new Exception500("프로필 사진 등록 실패 : "+e.getMessage());
         }
     } // 더티체킹 (업데이트)
+
+    public void 유저네임중복체크(String username) {
+        Optional<User> userOP = userRepository.findByUsername(username);
+        if(userOP.isPresent()){
+            throw new ExceptionApi400("username", "유저네임이 중복되었어요");
+        }
+    }
 }
