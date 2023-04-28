@@ -24,9 +24,14 @@ public class BoardController {
 
     // RestAPI 주소 설계 규칙에서 지원에는 복수를 붙인다. boards 정석
     @GetMapping({"/", "/board"})
-    public String main(@RequestParam(defaultValue = "0") int page, Model model){
-        Page<Board> boardPG = boardService.글목록보기(page); // OSIV = false: 영속 -> 비영속이된다.(세션에 연결이 안된다)
+    public String main(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "") String keyword, // PK or UK가 아니기 때문에
+            Model model
+    ){
+        Page<Board> boardPG = boardService.글목록보기(page, keyword); // OSIV = false: 영속 -> 비영속이된다.(세션에 연결이 안된다)
         model.addAttribute("boardPG", boardPG);
+        model.addAttribute("keyword", keyword);
         return "board/main";
     }
 
