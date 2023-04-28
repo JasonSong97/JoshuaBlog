@@ -31,7 +31,7 @@
             <ul class="navbar-nav">
 
                 <c:choose>
-                    <c:when test="${sessionUser ==null}">
+                    <c:when test="${sessionUser == null}">
                         <li class="nav-item">
                             <a class="nav-link" href="/loginForm">Login</a>
                         </li>
@@ -44,7 +44,7 @@
                             <a class="nav-link" href="/s/board/saveForm">Write</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/updateForm">Profile</a>
+                            <a class="nav-link" href="/s/user/${sessionUser.id}/updateForm">MyInformation</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
@@ -55,8 +55,10 @@
 
             <c:if test="${sessionUser != null}">
                 <div>
-                    <a href="/user/profileUpdate"><img src="/images/profile.jfif" style="width: 35px;"
-                                                       class="rounded-circle" alt="Cinque Terre"></a>
+                    <a href="/s/user/${sessionUser.id}/updateProfileForm"><img src="/upload/${sessionUser.profile}"
+                                                                               style="width: 35px;"
+                                                                               class="rounded-circle"
+                                                                               alt="Cinque Terre"></a>
                 </div>
             </c:if>
 
