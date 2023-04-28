@@ -15,12 +15,21 @@ import pastry.coffeecoding.joshuablog.dto.board.BoardRequest;
 import pastry.coffeecoding.joshuablog.model.board.Board;
 import pastry.coffeecoding.joshuablog.service.BoardService;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
+    private final HttpSession session;
+
+    @PostMapping("/s/board/{id}/delete")
+    public String delete(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        boardService.게시글삭제(id, myUserDetails.getUser().getId());
+        return "redirect:/";
+    }
 
     // RestAPI 주소 설계 규칙에서 지원에는 복수를 붙인다. boards 정석
     @GetMapping({"/", "/board"})
